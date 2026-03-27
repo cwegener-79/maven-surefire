@@ -22,8 +22,12 @@ import org.apache.maven.surefire.its.fixture.SurefireJUnit4IntegrationTestCase;
 import org.junit.jupiter.api.Test;
 
 /**
- * Integration test for relative {@code additionalClasspathElement} entries resolved against
- * the fork's working directory (regression guard for the manifest-JAR path-resolution bug).
+ * Integration tests for fork-related {@code additionalClasspathElement} features:
+ * <ul>
+ *   <li>Relative classpath elements resolved against the fork's working directory
+ *       (regression guard for the manifest-JAR path-resolution bug).</li>
+ *   <li>{@code ${surefire.forkNumber}} placeholder expansion inside classpath elements.</li>
+ * </ul>
  */
 public class AdditionalClasspathForkIT extends SurefireJUnit4IntegrationTestCase {
 
@@ -35,5 +39,15 @@ public class AdditionalClasspathForkIT extends SurefireJUnit4IntegrationTestCase
     @Test
     public void relativeClasspathElementResolvedAgainstWorkingDirectory() {
         unpack("/additional-classpath-relative-workdir").executeTest().verifyErrorFree(1);
+    }
+
+    /**
+     * Verifies that {@code ${surefire.forkNumber}} (and its alias {@code ${surefire.threadNumber}})
+     * is expanded inside {@code additionalClasspathElement} values, allowing fork-specific
+     * classpath directories.
+     */
+    @Test
+    public void forkNumberPlaceholderInClasspathElement() {
+        unpack("/additional-classpath-fork-number").executeTest().verifyErrorFree(1);
     }
 }

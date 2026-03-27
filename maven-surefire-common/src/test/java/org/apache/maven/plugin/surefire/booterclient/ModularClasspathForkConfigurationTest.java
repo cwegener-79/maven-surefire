@@ -150,6 +150,7 @@ public class ModularClasspathForkConfigurationTest {
                 cli,
                 ForkedBooter.class.getName(),
                 startupConfiguration,
+                1,
                 pwd,
                 SureFireFileManager.createTempFile("surefire", "surefire-reports"));
 
