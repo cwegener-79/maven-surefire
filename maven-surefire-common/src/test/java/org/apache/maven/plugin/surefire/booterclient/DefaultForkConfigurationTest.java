@@ -124,6 +124,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
 
@@ -159,6 +160,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
 
@@ -194,6 +196,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
 
@@ -229,6 +232,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
 
@@ -265,6 +269,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
 
@@ -300,6 +305,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
 
@@ -335,6 +341,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
 
@@ -370,6 +377,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
 
@@ -419,4 +427,5 @@ public class DefaultForkConfigurationTest {
         assertThat(cls).isEqualTo("org.apache.maven.surefire.booter.ForkedBooter");
         assertThat(confMock.isShadefire()).isFalse();
     }
+
 }
