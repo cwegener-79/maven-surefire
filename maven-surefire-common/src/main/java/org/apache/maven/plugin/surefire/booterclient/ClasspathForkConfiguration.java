@@ -78,10 +78,11 @@ public final class ClasspathForkConfiguration extends AbstractClasspathForkConfi
             @Nonnull Commandline cli,
             @Nonnull String booterThatHasMainMethod,
             @Nonnull StartupConfiguration config,
+            int forkNumber,
             @Nonnull File workingDirectory,
             @Nonnull File dumpLogDirectory)
             throws SurefireBooterForkException {
-        List<String> classpath = toCompleteClasspath(config);
+        List<String> classpath = applyForkNumberToClasspath(toCompleteClasspath(config), forkNumber);
         cli.addEnvironment("CLASSPATH", join(classpath.iterator(), File.pathSeparator));
         cli.createArg().setValue(booterThatHasMainMethod);
     }

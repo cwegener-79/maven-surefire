@@ -124,6 +124,7 @@ public abstract class DefaultForkConfiguration extends ForkConfiguration {
             @Nonnull Commandline cli,
             @Nonnull String booterThatHasMainMethod,
             @Nonnull StartupConfiguration config,
+            int forkNumber,
             @Nonnull File workingDirectory,
             @Nonnull File dumpLogDirectory)
             throws SurefireBooterForkException;
@@ -176,7 +177,7 @@ public abstract class DefaultForkConfiguration extends ForkConfiguration {
                 cli.createArg().setLine(getDebugLine());
             }
 
-            resolveClasspath(cli, findStartClass(config), config, cwd, dumpLogDirectory);
+            resolveClasspath(cli, findStartClass(config), config, forkNumber, cwd, dumpLogDirectory);
 
             return cli;
         } catch (CommandLineException e) {
@@ -204,6 +205,23 @@ public abstract class DefaultForkConfiguration extends ForkConfiguration {
         getLogger().debug(completeClasspath.getCompactLogMessage("boot(compact) classpath:"));
 
         return completeClasspath.getClassPath();
+    }
+
+    /**
+     * Applies {@code ${surefire.forkNumber}} substitution to each element of the given classpath list.
+     * This mirrors the substitution already performed on {@code argLine} and {@code workingDirectory}.
+     *
+     * @param classpath    raw classpath elements, possibly containing {@code ${surefire.forkNumber}}
+     * @param forkNumber   the current fork index (1-based)
+     * @return new list with all fork-number placeholders replaced
+     */
+    @Nonnull
+    protected static List<String> applyForkNumberToClasspath(@Nonnull List<String> classpath, int forkNumber) {
+        List<String> resolved = new java.util.ArrayList<>(classpath.size());
+        for (String element : classpath) {
+            resolved.add(replaceThreadNumberPlaceholders(element, forkNumber));
+        }
+        return resolved;
     }
 
     @Nonnull

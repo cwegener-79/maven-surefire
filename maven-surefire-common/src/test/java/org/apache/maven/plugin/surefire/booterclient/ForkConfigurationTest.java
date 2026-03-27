@@ -125,6 +125,7 @@ public class ForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            int forkNumber,
                             @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
@@ -180,6 +181,7 @@ public class ForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            int forkNumber,
                             @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
@@ -291,6 +293,7 @@ public class ForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            int forkNumber,
                             @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };

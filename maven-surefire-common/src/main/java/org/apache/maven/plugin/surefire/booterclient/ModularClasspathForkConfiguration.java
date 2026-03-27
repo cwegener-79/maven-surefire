@@ -91,6 +91,7 @@ public class ModularClasspathForkConfiguration extends DefaultForkConfiguration 
             @Nonnull Commandline cli,
             @Nonnull String startClass,
             @Nonnull StartupConfiguration config,
+            int forkNumber,
             @Nonnull File workingDirectory,
             @Nonnull File dumpLogDirectory)
             throws SurefireBooterForkException {
@@ -107,7 +108,7 @@ public class ModularClasspathForkConfiguration extends DefaultForkConfiguration 
             List<String> modulePath = modularClasspath.getModulePath();
             Collection<String> packages = modularClasspath.getPackages();
             File patchFile = modularClasspath.getPatchFile();
-            List<String> classpath = toCompleteClasspath(config);
+            List<String> classpath = applyForkNumberToClasspath(toCompleteClasspath(config), forkNumber);
 
             File argsFile = createArgsFile(
                     moduleName,

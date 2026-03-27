@@ -21,8 +21,11 @@ package org.apache.maven.plugin.surefire.booterclient;
 import javax.annotation.Nonnull;
 
 import java.io.File;
+import java.lang.reflect.Method;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -124,6 +127,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            int forkNumber,
                             @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
@@ -160,6 +164,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            int forkNumber,
                             @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
@@ -196,6 +201,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            int forkNumber,
                             @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
@@ -232,6 +238,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            int forkNumber,
                             @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
@@ -269,6 +276,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            int forkNumber,
                             @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
@@ -305,6 +313,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            int forkNumber,
                             @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
@@ -341,6 +350,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            int forkNumber,
                             @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
@@ -377,6 +387,7 @@ public class DefaultForkConfigurationTest {
                             @Nonnull Commandline cli,
                             @Nonnull String booterThatHasMainMethod,
                             @Nonnull StartupConfiguration config,
+                            int forkNumber,
                             @Nonnull File workingDirectory,
                             @Nonnull File dumpLogDirectory) {}
                 };
@@ -428,4 +439,17 @@ public class DefaultForkConfigurationTest {
         assertThat(confMock.isShadefire()).isFalse();
     }
 
+    @Test
+    public void shouldApplyForkNumberToClasspathElements() {
+        List<String> input = Arrays.asList(
+                "/stable/path/lib.jar",
+                "/build/dir-${surefire.forkNumber}/classes",
+                "/build/dir-${surefire.threadNumber}/resources");
+
+        List<String> fork1 = DefaultForkConfiguration.applyForkNumberToClasspath(input, 1);
+        assertThat(fork1).containsExactly("/stable/path/lib.jar", "/build/dir-1/classes", "/build/dir-1/resources");
+
+        List<String> fork3 = DefaultForkConfiguration.applyForkNumberToClasspath(input, 3);
+        assertThat(fork3).containsExactly("/stable/path/lib.jar", "/build/dir-3/classes", "/build/dir-3/resources");
+    }
 }
